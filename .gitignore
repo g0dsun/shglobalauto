@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.DS_Store
+kb/data/
+kb/state.json
+kb/cars.json
+kb/deployed.json
+kb/watermark_done.json
+kb/admin.json
+kb/kb_error.log
+files.zip
