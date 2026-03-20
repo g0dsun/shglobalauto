@@ -53,11 +53,15 @@ def get_photo_paths(folder_name):
 
 
 def parse_price_krw(car_data):
-    for key in ("가격", "판매가격"):
+    # 판매가격을 먼저 체크 (가격 필드에는 번호판+차명이 들어있는 경우 있음)
+    for key in ("판매가격", "가격"):
         val = car_data.get(key, "")
-        if val:
+        if not val:
+            continue
+        # "만원" 포함된 값만 가격으로 인정
+        if "만원" in val or "만" in val:
             num = re.sub(r'[^\d]', '', str(val))
-            if num:
+            if num and len(num) <= 6:  # 만원 단위 최대 6자리
                 return int(num)
     return 0
 

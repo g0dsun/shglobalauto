@@ -309,29 +309,28 @@ async def scrape_detail_page(page, car_seq):
         car_data["사진URLs"] = photo_urls
         car_data["사진수"] = len(photo_urls)
 
-        # 옵션 추출
+        # 옵션 추출: .car-option-list li 중 disable 아닌 것
         options = await page.evaluate("""
             () => {
                 const opts = [];
-                document.querySelectorAll('.on, .active, .checked, [class*="check"]').forEach(el => {
-                    const text = el.textContent.trim();
-                    if (text && text.length > 1 && text.length < 40) opts.push(text);
+                const skip = ['전체보기', '옵션정보', '더보기'];
+                const items = document.querySelectorAll('.car-option-list li');
+                items.forEach(li => {
+                    if (li.classList.contains('disable')) return;
+                    // li 전체 텍스트에서 공백 정리
+                    let text = li.textContent.replace(/[\\t\\n\\r]+/g, ' ').replace(/\\s+/g, ' ').trim();
+                    if (!text || text.length < 2 || text.length > 50) return;
+                    if (skip.some(s => text.includes(s))) return;
+                    // 괄호 정리: ( 운전석 , 동승석 ) → (운전석, 동승석)
+                    text = text.replace(/\\(\\s*/g, '(').replace(/\\s*\\)/g, ')').replace(/\\s*,\\s*/g, ', ');
+                    opts.push(text);
                 });
-                document.querySelectorAll('.option-list li.on, .option-wrap li.on, .opt-list li.on').forEach(el => {
-                    const text = el.textContent.trim();
-                    if (text && text.length < 40 && !opts.includes(text)) opts.push(text);
-                });
-                return [...new Set(opts)];
+                return opts;
             }
         """)
 
-        # 옵션 노이즈 제거
-        clean_opts = [
-            o for o in options
-            if o and len(o) < 30 and not any(n in o for n in OPTION_NOISE)
-        ]
-        if clean_opts:
-            car_data["옵션"] = clean_opts
+        if options:
+            car_data["옵션"] = options
 
         logger.info(f"  [{car_seq}] {car_data.get('차량명', '?')} - 사진 {len(photo_urls)}장")
 

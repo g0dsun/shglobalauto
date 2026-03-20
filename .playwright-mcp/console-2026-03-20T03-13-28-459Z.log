@@ -1,0 +1,3 @@
+[    2745ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://ngc1.nsm-corp.com/?cookie:0
+[    2926ms] [ERROR] Failed to load resource: net::ERR_CERT_DATE_INVALID @ https://sas.nsm-corp.com/sa-w.js?gc=TR10062602448&rd=1773976411192:0
+[    3292ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://cm.g.doubleclick.net/pixel?google_nid=enliple_tw&google_hm=X3xffGVjMjI1OWQ2NjY5YjgyMDA1ZmMyMWIyMTlkMDkzYWM0YjUtOGQ2&google_tc=:0

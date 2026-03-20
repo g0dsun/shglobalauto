@@ -1,0 +1,2 @@
+[     807ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://ngc1.nsm-corp.com/?cookie:0
+[     876ms] [ERROR] Failed to load resource: net::ERR_CERT_DATE_INVALID @ https://sas.nsm-corp.com/sa-w.js?gc=TR10062602448&rd=1773976473718:0

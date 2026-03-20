@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip:*)",
+      "Bash(npx:*)",
+      "Bash(sudo chown:*)"
+    ]
+  }
+}
