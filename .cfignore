@@ -1,0 +1,13 @@
+.git
+.claude
+.playwright-mcp
+.tmp_snapshot*.md
+__pycache__
+*.py
+*.pyc
+kb/state.json
+kb/cars.json
+kb/deployed.json
+kb/watermark_done.json
+cars-data.js
+node_modules

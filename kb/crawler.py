@@ -61,6 +61,12 @@ def load_state():
 
 
 def save_state(state):
+    # 병렬 실행 시 다른 연료 타입의 상태를 보존하기 위해 현재 파일과 병합
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            current = json.load(f)
+        current.update(state)
+        state = current
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
@@ -111,25 +117,25 @@ async def apply_filters(page, fuel_type):
         min_input = page.locator('input[placeholder*="최소"]').first
         max_input = page.locator('input[placeholder*="최대"]').first
         if await min_input.count() > 0:
-            await min_input.fill("500")
-            await max_input.fill("50000")
+            await min_input.fill("100")
+            await max_input.fill("100000")
             apply_btn = page.locator('button:has-text("적용"), a:has-text("적용")')
             if await apply_btn.count() > 0:
                 await apply_btn.first.click()
-            logger.info("  [+] 가격: 500만~5억")
+            logger.info("  [+] 가격: 100만~10억")
             await asyncio.sleep(2)
     except Exception as e:
         logger.warning(f"  [!] 가격 필터 실패: {e}")
 
-    # 정렬: 가격 높은순
+    # 정렬: 등록일순 (최신 매물이 먼저 → 신규 차량을 놓치지 않음)
     try:
-        sort_btn = page.locator('button:has-text("가격")')
+        sort_btn = page.locator('button:has-text("등록일")')
         if await sort_btn.count() > 0:
             await sort_btn.first.click()
-            await asyncio.sleep(1)
-            await sort_btn.first.click()
             await asyncio.sleep(2)
-            logger.info("  [+] 정렬: 가격 높은순")
+            logger.info("  [+] 정렬: 등록일순 (최신)")
+        else:
+            logger.warning("  [!] 등록일 정렬 버튼 없음")
     except Exception as e:
         logger.warning(f"  [!] 정렬 실패: {e}")
 
@@ -156,6 +162,7 @@ async def go_to_next_page(page, target_page):
     try:
         await page.evaluate(f"""
             () => {{
+                if (typeof app !== 'undefined' && typeof app.setPage === 'function') {{ app.setPage({target_page}); window.scrollTo(0,0); return; }}
                 if (typeof goSearch === 'function') {{ goSearch({target_page}); return; }}
                 if (typeof goPage === 'function') {{ goPage({target_page}); return; }}
                 const pageLinks = document.querySelectorAll('.pagination a, .paging a, [class*="page"] a, .page-num a');
@@ -166,7 +173,15 @@ async def go_to_next_page(page, target_page):
                 if (nextBtns.length > 0) nextBtns[0].click();
             }}
         """)
-        await asyncio.sleep(PAGE_LOAD_WAIT + 1)
+        # 결과 로딩 대기 (최대 10초, 1초 간격 폴링)
+        for _ in range(10):
+            await asyncio.sleep(1)
+            count = await page.evaluate(
+                'document.querySelectorAll(\'a[href*="detail.kbc?carSeq="]\').length'
+            )
+            if count > 0:
+                break
+        await asyncio.sleep(1)
         return True
     except Exception as e:
         logger.warning(f"  페이지 {target_page} 이동 실패: {e}")
@@ -245,6 +260,13 @@ async def scrape_detail_page(page, car_seq):
             }
         """)
         car_data.update(info)
+
+        # 판매가격 정제: 할인 매물 "5,290만원\n...\n4,990만원" → "4,990만원" (할인가)
+        sale_price = car_data.get("판매가격", "")
+        if sale_price and "만원" in sale_price:
+            prices = re.findall(r'([\d,]+\s*만원)', sale_price)
+            if prices:
+                car_data["판매가격"] = prices[-1].strip()
 
         # 차량명 정제
         raw_name = (raw_name or "").strip()
@@ -423,18 +445,24 @@ async def main():
 
     all_new_cars = []
 
+    # 전체 연료 타입에 걸쳐 수집된 carSeq 통합 (연료 간 중복 방지)
+    global_seqs = set()
+    for ft in FUEL_TYPES:
+        ft_st = state.get(ft["name"], {})
+        global_seqs.update(ft_st.get("collected_car_seqs", []))
+
     for fuel_type in FUEL_TYPES:
         ft_name = fuel_type["name"]
         ft_label = fuel_type["label"]
         ft_state = state.setdefault(ft_name, {"last_page": 0, "last_date": None, "collected_car_seqs": []})
-        existing_seqs = set(ft_state.get("collected_car_seqs", []))
+        existing_seqs = global_seqs  # 전체 통합 세트 사용
 
         logger.info(f"[시작] KB차차차 - {ft_label} (오늘: {today})")
 
         new_cars = []
 
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=False)
+            browser = await p.chromium.launch(headless=True)
             context = await browser.new_context(
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -476,7 +504,7 @@ async def main():
                 if not new_seqs:
                     no_new_streak += 1
                     if no_new_streak >= 3:
-                        logger.info(f"  연속 {no_new_streak}페이지 신규 0 → 종료")
+                        logger.info(f"  연속 {no_new_streak}페이지 신규 0 → 종료 (모든 신규 매물 수집 완료)")
                         break
                 else:
                     no_new_streak = 0
@@ -502,7 +530,8 @@ async def main():
                                 car_folder = f"{car_folder}_{idx}"
 
                             os.makedirs(car_folder, exist_ok=True)
-                            download_photos(car_data, session, car_folder)
+                            # 사진은 CDN URL 사용하므로 다운로드 건너뜀 (디스크 절약)
+                            # download_photos(car_data, session, car_folder)
                             car_data["사진_폴더"] = os.path.basename(car_folder)
                             save_car_info(car_data, car_folder)
 
@@ -512,6 +541,12 @@ async def main():
 
                 # 다음 페이지
                 current_page += 1
+                # 상세 페이지 크롤링 후에는 검색 결과로 돌아가야 함
+                if new_seqs:
+                    logger.info(f"  검색 결과 {current_page}페이지로 이동...")
+                    await page.goto(SEARCH_URL, wait_until="networkidle", timeout=60000)
+                    await asyncio.sleep(PAGE_LOAD_WAIT)
+                    await apply_filters(page, fuel_type)
                 if not await go_to_next_page(page, current_page):
                     logger.info(f"  페이지 이동 불가 → 종료")
                     break

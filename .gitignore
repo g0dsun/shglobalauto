@@ -10,3 +10,14 @@ kb/watermark_done.json
 kb/admin.json
 kb/kb_error.log
 files.zip
+.gstack/
+.tmp_*
+.playwright-mcp/
+cars-data-1.js
+cars-data-2.js
+cars-data.js
+kb/crawl_and_deploy.log
+kb/news_briefing.log
+kb/maintenance.log
+kb/news_history.json
+shglobalauto2026.txt

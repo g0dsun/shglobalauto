@@ -59,10 +59,14 @@ def parse_price_krw(car_data):
         if not val:
             continue
         # "만원" 포함된 값만 가격으로 인정
-        if "만원" in val or "만" in val:
-            num = re.sub(r'[^\d]', '', str(val))
-            if num and len(num) <= 6:  # 만원 단위 최대 6자리
-                return int(num)
+        if "만원" not in val and "만" not in val:
+            continue
+        # 할인 매물: "5,290만원\n...\n4,990만원" → 마지막(할인) 가격 사용
+        price_matches = re.findall(r'([\d,]+)\s*만원?', str(val))
+        if price_matches:
+            last_price = price_matches[-1].replace(',', '')
+            if last_price and len(last_price) <= 6:
+                return int(last_price)
     return 0
 
 
@@ -82,7 +86,10 @@ def build_car_entry(car_data, folder_name, idx):
     car_name = car_data.get("차량명", "Unknown")
     brand_kr, brand_en = detect_brand(car_name)
 
-    photos = get_photo_paths(folder_name)
+    # 원본 CDN URL 우선 사용 (Cloudflare 파일 제한 회피)
+    photos = car_data.get("사진URLs", [])
+    if not photos:
+        photos = get_photo_paths(folder_name)
     if not photos:
         return None
 
@@ -130,6 +137,34 @@ def build_car_entry(car_data, folder_name, idx):
     return entry
 
 
+def save_cars_data_split(js_entries):
+    """차량 데이터를 분할 JS 파일로 저장 (Cloudflare 25MB 제한 대응)"""
+    photo_prefix = "https://img.kbchachacha.com/IMG/carimg/l/"
+
+    mid = len(js_entries) // 2
+    part1 = js_entries[:mid]
+    part2 = js_entries[mid:]
+
+    def compress_entries(entries):
+        return [e.replace(photo_prefix, '') for e in entries]
+
+    part1_js = "carsData.push(...[\n" + ",\n".join(compress_entries(part1)) + "\n]);"
+    part2_js = "carsData.push(...[\n" + ",\n".join(compress_entries(part2)) + "\n]);"
+
+    p1_path = os.path.join(PROJECT_DIR, "cars-data-1.js")
+    p2_path = os.path.join(PROJECT_DIR, "cars-data-2.js")
+
+    with open(p1_path, "w", encoding="utf-8") as f:
+        f.write(part1_js)
+    with open(p2_path, "w", encoding="utf-8") as f:
+        f.write(part2_js)
+
+    s1 = os.path.getsize(p1_path)
+    s2 = os.path.getsize(p2_path)
+    logger.info(f"  cars-data-1.js: {s1/1024/1024:.1f}MB, cars-data-2.js: {s2/1024/1024:.1f}MB")
+    return True
+
+
 def update_index_html(js_entries):
     if not os.path.exists(INDEX_HTML_PATH):
         logger.warning(f"index.html 없음: {INDEX_HTML_PATH}")
@@ -138,20 +173,9 @@ def update_index_html(js_entries):
     with open(INDEX_HTML_PATH, "r", encoding="utf-8") as f:
         html = f.read()
 
-    cars_data_js = "const carsData = [\n" + ",\n".join(js_entries) + "\n];"
-
-    # carsData 블록 교체
-    start_marker = "const carsData = ["
-    end_marker = "];\n"
-
-    try:
-        start_idx = html.index(start_marker)
-        search_from = start_idx + len(start_marker)
-        end_idx = html.index(end_marker, search_from) + len(end_marker)
-        html = html[:start_idx] + cars_data_js + "\n" + html[end_idx:]
-    except ValueError:
-        logger.error("index.html에서 carsData 블록을 찾을 수 없음")
-        return False
+    # 차량 데이터는 외부 JS 파일로 분리됨 — index.html 내 carsData는 건드리지 않음
+    # 분할 JS 파일 저장
+    save_cars_data_split(js_entries)
 
     # 브랜드 필터 갱신
     try:
@@ -212,6 +236,7 @@ def main():
     js_entries = []
     new_count = 0
     idx = 1
+    seen_seqs = set()  # carSeq 기반 중복 제거
 
     for folder in sorted(os.listdir(DATA_DIR)):
         folder_path = os.path.join(DATA_DIR, folder)
@@ -225,6 +250,11 @@ def main():
         car_seq = car_data.get("car_seq", "")
         if not car_seq:
             continue
+
+        # carSeq 중복 제거: 같은 차량이 여러 폴더에 있으면 첫 번째만 사용
+        if car_seq in seen_seqs:
+            continue
+        seen_seqs.add(car_seq)
 
         entry = build_car_entry(car_data, folder, idx)
         if entry:
@@ -250,6 +280,12 @@ def main():
         save_deployed(deployed)
         print(f"index.html 갱신 완료!")
         print(f"  차량: {len(js_entries)}대")
+        # GEO 디렉토리에도 동기화 (배포 시 GEO 버전 사용)
+        import shutil
+        geo_index = os.path.join(os.path.expanduser("~"), "Desktop", "GEO", "index.html")
+        if os.path.exists(os.path.dirname(geo_index)):
+            shutil.copy2(INDEX_HTML_PATH, geo_index)
+            print(f"  GEO/index.html 동기화 완료")
     else:
         print("[ERROR] index.html 갱신 실패")
 
