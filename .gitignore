@@ -21,3 +21,14 @@ kb/news_briefing.log
 kb/maintenance.log
 kb/news_history.json
 shglobalauto2026.txt
+
+# secrets & API state
+kb/gsc-indexing-key.json
+kb/*.log
+kb/indexing_history.json
+kb/indexing_results.csv
+kb/last_seen.json
+kb/last_seen.json.bak.*
+kb/last_seen.json.lock
+kb/sns_posted.json
+kb/broken_photos.json
