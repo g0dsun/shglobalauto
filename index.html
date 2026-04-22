@@ -14,6 +14,7 @@
     <meta property="og:image" content="https://shglobalauto.com/logo_clean.png">
     <meta property="og:site_name" content="SH GLOBAL">
     <meta name="robots" content="index, follow">
+    <meta name="yandex-verification" content="0e40d7914c5c28f7">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SH GLOBAL — Premium Korean Used Cars Export">
     <meta name="twitter:description" content="Luxury and premium Korean used cars exported worldwide. Trusted partner for Central Asia and Africa.">
@@ -56,10 +57,13 @@
         }
     }
     </script>
+    <link rel="preload" href="/bebas-neue-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet"></noscript>
     <style>
+        @font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url(/bebas-neue-latin.woff2) format('woff2')}
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -1312,8 +1316,8 @@
         }
         .footer-main {
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1.3fr 1fr 1fr 1fr 1.1fr;
+            gap: 36px;
             padding: 64px 0 48px;
         }
         .footer-brand .footer-logo {
@@ -1399,6 +1403,9 @@
             transition: var(--transition);
         }
         .footer-legal a:hover { color: var(--gold); }
+        @media (max-width: 1024px) {
+            .footer-main { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+        }
         @media (max-width: 768px) {
             .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
         }
@@ -1582,7 +1589,7 @@
 
 <!-- Navigation -->
 <nav class="nav" id="nav">
-    <a href="/" class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'}); history.pushState(null,null,'/'); return false;"><img src="logo_clean.png" alt="SH GLOBAL Car Export"><span class="nav-logo-text">SH <em>GLOBAL</em></span></a>
+    <a href="/" class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'}); history.pushState(null,null,'/'); return false;"><picture><source srcset="logo_clean.webp" type="image/webp"><img src="logo_clean.png" alt="SH GLOBAL Car Export" width="120" height="77"></picture><span class="nav-logo-text">SH <em>GLOBAL</em></span></a>
     <ul class="nav-links" id="navLinks">
         <li><a href="#inventory" data-i18n="nav_inventory">Inventory</a></li>
         <li><a href="#why-us" data-i18n="nav_why">Why Us</a></li>
@@ -1610,6 +1617,7 @@
         <div class="hero-badge" data-i18n="hero_badge">Trusted Korean Auto Exporter</div>
         <h1>PREMIUM <span class="gold">KOREAN</span><br>USED CARS<br>WORLDWIDE</h1>
         <p class="hero-desc" data-i18n="hero_desc">Direct export of luxury and premium vehicles from South Korea to Central Asia and Africa. Verified quality, transparent pricing, full documentation.</p>
+        <p class="hero-keywords" data-i18n="hero_keywords" style="font-size:.82rem;color:var(--text-muted);margin-top:.3rem;max-width:640px;">Export Korean used cars to Kazakhstan, Uzbekistan, Nigeria, Kenya, Dubai and 15+ countries. Hyundai, Kia, Genesis, BMW, Mercedes-Benz — FOB pricing from Incheon &amp; Busan ports.</p>
         <div class="hero-actions">
             <a href="#inventory" class="btn btn-gold" data-i18n="hero_cta_browse">Browse Inventory</a>
             <a href="#request" class="btn btn-outline" data-i18n="hero_cta_request">Request a Car</a>
@@ -1679,10 +1687,8 @@
                     <option value="Bentley">Bentley</option>
                     <option value="Cadillac">Cadillac</option>
                     <option value="Chevrolet">Chevrolet</option>
-                    <option value="DS">DS</option>
                     <option value="Ferrari">Ferrari</option>
                     <option value="Ford">Ford</option>
-                    <option value="GMC">GMC</option>
                     <option value="Genesis">Genesis</option>
                     <option value="Honda">Honda</option>
                     <option value="Hyundai">Hyundai</option>
@@ -1706,29 +1712,18 @@
                     <option value="Rolls-Royce">Rolls-Royce</option>
                     <option value="Volkswagen">Volkswagen</option>
                     <option value="Volvo">Volvo</option>
-                    <option value="기타">기타</option>
                     <option value="다이하쓰">다이하쓰</option>
                     <option value="닷지">닷지</option>
                     <option value="도요타">도요타</option>
-                    <option value="로터스">로터스</option>
-                    <option value="마이바흐">마이바흐</option>
                     <option value="마쯔다">마쯔다</option>
                     <option value="맥라렌">맥라렌</option>
-                    <option value="미쯔오까">미쯔오까</option>
                     <option value="스마트">스마트</option>
                     <option value="스바루">스바루</option>
                     <option value="스즈키">스즈키</option>
-                    <option value="스카니아">스카니아</option>
                     <option value="시트로엥">시트로엥</option>
-                    <option value="알파로메오">알파로메오</option>
-                    <option value="애스턴마틴">애스턴마틴</option>
-                    <option value="이네오스">이네오스</option>
-                    <option value="이베코">이베코</option>
                     <option value="이스즈">이스즈</option>
                     <option value="피아트">피아트</option>
                     <option value="한국GM">한국GM</option>
-                    <option value="허머">허머</option>
-                    <option value="히노">히노</option>
                 </select>
             <select class="filter-select" id="yearFilter">
                 <option value="" data-i18n="filter_year">All Years</option>
@@ -1744,7 +1739,6 @@
                     <option value="" data-i18n="filter_fuel">All Fuel Types</option>
                     <option value="Diesel">Diesel</option>
                     <option value="Gasoline">Gasoline</option>
-                    <option value="LPG">LPG</option>
                 </select>
             <select class="filter-select" id="sortFilter">
                 <option value="price-desc" data-i18n="sort_high">Price: High to Low</option>
@@ -2107,7 +2101,7 @@
     <div class="container">
         <div class="footer-main">
             <div class="footer-brand">
-                <div class="footer-logo"><img src="logo_clean.png" alt="SH GLOBAL" style="height:50px;width:auto;object-fit:contain;"><span class="nav-logo-text" style="font-size:1.4rem;">SH <em>GLOBAL</em></span></div>
+                <div class="footer-logo"><picture><source srcset="logo_clean.webp" type="image/webp"><img src="logo_clean.png" alt="SH GLOBAL" style="height:50px;width:auto;object-fit:contain;" width="78" height="50" loading="lazy"></picture><span class="nav-logo-text" style="font-size:1.4rem;">SH <em>GLOBAL</em></span></div>
                 <p>Premium Korean used car export to Central Asia &amp; Africa. Your trusted partner for quality vehicles direct from South Korea.</p>
                 <div class="footer-social">
                     <a href="https://wa.me/821058048504" target="_blank" title="WhatsApp">
@@ -2145,6 +2139,20 @@
                     <li><strong>CEO:</strong> Sun Gwan KIM</li>
                     <li><strong>Reg. No:</strong> 136-09-84466</li>
                     <li>186 Sangdong-ro, Wonmi-gu, Bucheon-si, Gyeonggi-do, Republic of Korea</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_destinations">Export Destinations</h4>
+                <ul>
+                    <li><a href="/export/kazakhstan">Kazakhstan</a></li>
+                    <li><a href="/export/uzbekistan">Uzbekistan</a></li>
+                    <li><a href="/export/kyrgyzstan">Kyrgyzstan</a></li>
+                    <li><a href="/export/nigeria">Nigeria</a></li>
+                    <li><a href="/export/ghana">Ghana</a></li>
+                    <li><a href="/export/kenya">Kenya</a></li>
+                    <li><a href="/export/dubai">Dubai / UAE</a></li>
+                    <li><a href="/export/saudi-arabia">Saudi Arabia</a></li>
+                    <li><a href="/export/albania">Albania</a></li>
                 </ul>
             </div>
         </div>
@@ -2209,16 +2217,52 @@ function _loadPart(url) {
 }
 (async function() {
     try {
-        await _loadPart('/cars-data-1.js');
-        await _loadPart('/cars-data-2.js');
-        // URL 접두사 복원
+        window._allDataLoaded = false;
+        // /car/ URL 접속인지 체크 — 맞으면 전체 데이터 즉시 로딩 (지연 로딩 스킵)
+        var _isCarUrl = window.location.pathname.match(/^\/car\//);
+
+        // Phase 1: 초기 20대 즉시 로딩 (LCP 최적화)
+        await _loadPart('/cars-data-initial.js');
         carsData.forEach(car => {
             if (car.photos) car.photos = car.photos.map(u => u.startsWith('http') ? u : _P + u);
         });
         if (typeof renderCars === 'function') renderCars();
-        if (typeof applyFilters === 'function') applyFilters();
-        // 데이터 로딩 후 URL 파라미터 처리
-        if (typeof handleUrlParams === 'function') handleUrlParams();
+        // Phase 1에서는 초기 데이터에 있는 차량만 URL 처리 (없으면 Phase 2 대기)
+        if (typeof handleUrlParams === 'function' && !_isCarUrl) handleUrlParams();
+
+        // Phase 2: 나머지 전체 데이터 로딩
+        var _loadRest = async function() {
+            await _loadPart('/cars-data-1.js');
+            await _loadPart('/cars-data-2.js');
+            carsData.forEach(car => {
+                if (car.photos) car.photos = car.photos.map(u => u.startsWith('http') ? u : _P + u);
+            });
+            try {
+                var rateRes = await fetch('https://open.er-api.com/v6/latest/KRW');
+                var rateData = await rateRes.json();
+                if (rateData.result === 'success') {
+                    window._usdRate = rateData.rates.USD;
+                    window._rateDate = rateData.time_last_update_utc ? rateData.time_last_update_utc.split(' ').slice(0,4).join(' ') : '';
+                    carsData.forEach(car => {
+                        var krw = parseInt(String(car.priceKRW).replace(/,/g, '')) || 0;
+                        car.priceUSD = '~$' + Math.round(krw * 10000 * window._usdRate).toLocaleString();
+                    });
+                    console.log('환율 적용 완료: 1 KRW = ' + window._usdRate + ' USD');
+                }
+            } catch(e) { console.log('환율 API 실패, 기존 가격 유지'); }
+            window._allDataLoaded = true;
+            if (typeof renderCars === 'function') renderCars();
+            if (typeof applyFilters === 'function') applyFilters();
+            if (typeof handleUrlParams === 'function') handleUrlParams();
+        };
+        // /car/ URL 접속 시 즉시 전체 로딩 (딥링크 작동 보장), 아니면 지연 로딩
+        if (_isCarUrl) {
+            await _loadRest();
+        } else if (typeof requestIdleCallback === 'function') {
+            requestIdleCallback(function() { _loadRest(); });
+        } else {
+            setTimeout(_loadRest, 2000);
+        }
     } catch(e) { console.error('차량 데이터 로딩 실패:', e); }
 })();
 
@@ -2270,9 +2314,12 @@ function specialDealCardHTML(car) {
                 </div>
             </div>
             <div class="car-card-footer">
-                <div class="car-card-price"><a href="https://wa.me/821058048504?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(car.name)}" target="_blank" style="background:var(--whatsapp);color:#fff;padding:8px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(37,211,102,0.3);transition:transform 0.2s;"><svg viewBox="0 0 24 24" fill="#fff" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp Inquiry</a></div>
+                <div class="car-card-price" style="display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:1.1rem;font-weight:700;color:var(--gold);">${car.priceUSD} <span style="font-size:0.65rem;color:var(--text-muted);font-weight:400;">FOB</span></span>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">₩${car.priceKRW}만</span>
+                </div>
                 <div class="car-card-inquiry">
-                    <button onclick="event.stopPropagation(); window.open('https://wa.me/821058048504?text=Hi, I am interested in ${encodeURIComponent(car.brand + ' ' + car.name)} (SPECIAL DEAL)','_blank')" title="WhatsApp">
+                    <button onclick="event.stopPropagation(); window.open('https://wa.me/821058048504?text=' + encodeURIComponent('Hi, I am interested in ' + '${car.year}' + ' ' + '${car.brand}' + ' ' + '${car.name}' + ' (SPECIAL DEAL)' + String.fromCharCode(10) + location.origin + '/car/' + ('${car.brand}-${car.name}').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,35) + '-${car.id}'),'_blank')" title="WhatsApp">
                         <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     </button>
                     <button onclick="event.stopPropagation(); window.open('https://t.me/usedcaras_SH','_blank')" title="Telegram">
@@ -2552,9 +2599,12 @@ function carCardHTML(car) {
                 </div>
             </div>
             <div class="car-card-footer">
-                <div class="car-card-price"><a href="https://wa.me/821058048504?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(car.name)}" target="_blank" style="background:var(--whatsapp);color:#fff;padding:8px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(37,211,102,0.3);transition:transform 0.2s;"><svg viewBox="0 0 24 24" fill="#fff" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp Inquiry</a></div>
+                <div class="car-card-price" style="display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:1.1rem;font-weight:700;color:var(--gold);">${car.priceUSD} <span style="font-size:0.65rem;color:var(--text-muted);font-weight:400;">FOB</span></span>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">₩${car.priceKRW}만</span>
+                </div>
                 <div class="car-card-inquiry">
-                    <button onclick="event.stopPropagation(); window.open('https://wa.me/821058048504?text=Hi, I am interested in ${encodeURIComponent(car.brand + ' ' + car.name)}','_blank')" title="WhatsApp">
+                    <button onclick="event.stopPropagation(); window.open('https://wa.me/821058048504?text=' + encodeURIComponent('Hi, I am interested in ' + '${car.year}' + ' ' + '${car.brand}' + ' ' + '${car.name}' + String.fromCharCode(10) + location.origin + '/car/' + ('${car.brand}-${car.name}').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,35) + '-${car.id}'),'_blank')" title="WhatsApp">
                         <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     </button>
                     <button onclick="event.stopPropagation(); window.open('https://t.me/usedcaras_SH','_blank')" title="Telegram">
@@ -2689,10 +2739,15 @@ function openModal(carId, skipHistory) {
     currentCarPhotos = car.photos;
     currentPhotoIndex = 0;
 
-    // URL 업데이트 (SEO/GEO 공유 가능한 링크)
+    // URL 업데이트 (SEO/GEO 공유 가능한 링크) — 슬러그 기반 (브랜드 + 모델명만)
+    const slug = (car.brand + '-' + car.name)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '')
+        .slice(0, 35);
+    const carUrl = '/car/' + slug + '-' + carId;
     if (!skipHistory) {
-        const slug = (car.brand + '-' + car.name).replace(/[^a-zA-Z0-9가-힣]/g, '-').replace(/-+/g, '-');
-        history.pushState({carId: carId}, '', '?car=' + carId);
+        history.pushState({carId: carId}, '', carUrl);
     }
 
     // 동적 메타태그 업데이트
@@ -2706,7 +2761,7 @@ function openModal(carId, skipHistory) {
     var ogImg = document.querySelector('meta[property="og:image"]');
     if (ogImg) ogImg.content = car.photos[0];
     var ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) ogUrl.content = 'https://shglobalauto.com/?car=' + carId;
+    if (ogUrl) ogUrl.content = 'https://shglobalauto.com' + carUrl;
 
     // Schema.org Vehicle 구조화 데이터
     var existingSchema = document.getElementById('vehicle-schema');
@@ -2732,7 +2787,7 @@ function openModal(carId, skipHistory) {
             "availability": "https://schema.org/InStock",
             "seller": {"@type": "Organization", "name": "SH GLOBAL Co., Ltd.", "url": "https://shglobalauto.com"}
         },
-        "url": "https://shglobalauto.com/?car=" + carId
+        "url": "https://shglobalauto.com" + carUrl
     });
     document.head.appendChild(schemaScript);
 
@@ -2756,7 +2811,11 @@ function openModal(carId, skipHistory) {
     body.innerHTML = `
         <div class="modal-brand">${car.brand}</div>
         <div class="modal-title">${currentLang === 'ru' ? car.nameRu : car.name}</div>
-        <div class="modal-price"><a href="https://wa.me/821058048504?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(car.name)}%20(ID%3A${car.id})" target="_blank" style="background:var(--whatsapp);color:#fff;padding:12px 28px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(37,211,102,0.35);"><svg viewBox="0 0 24 24" fill="#fff" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Get Price via WhatsApp</a></div>
+        <div class="modal-price" style="display:flex;align-items:center;gap:16px;margin:12px 0 16px;">
+            <span style="font-size:1.8rem;font-weight:700;color:var(--gold);">${car.priceUSD}</span>
+            <span style="font-size:0.85rem;color:var(--text-muted);">FOB Korea</span>
+            <span style="font-size:0.9rem;color:var(--text-secondary);margin-left:auto;">₩${car.priceKRW}만</span>
+        </div>
         <div class="modal-specs">
             <div class="modal-spec"><div class="modal-spec-label">${t('detail_year')}</div><div class="modal-spec-value">${car.year}</div></div>
             <div class="modal-spec"><div class="modal-spec-label">${t('detail_mileage')}</div><div class="modal-spec-value">${car.mileage.toLocaleString()} km</div></div>
@@ -2769,7 +2828,7 @@ function openModal(carId, skipHistory) {
             <div class="option-tags">${car.options.map(o => `<span class="option-tag">${translateOption(o)}</span>`).join('')}</div>
         </div>
         <div class="modal-cta">
-            <a href="https://wa.me/821058048504?text=${encodeURIComponent('Hi, I am interested in ' + car.brand + ' ' + car.name + ' (ID: ' + car.id + ')')}" target="_blank" class="btn btn-whatsapp">
+            <a href="https://wa.me/821058048504?text=${encodeURIComponent('Hi, I am interested in ' + car.year + ' ' + car.brand + ' ' + car.name + '\n' + window.location.origin + '/car/' + (car.brand + '-' + car.name).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,35) + '-' + car.id)}" target="_blank" class="btn btn-whatsapp">
                 <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 ${t('detail_wa')}
             </a>
@@ -2791,8 +2850,8 @@ function closeModal() {
     document.getElementById('modalOverlay').classList.remove('active');
     document.body.style.overflow = '';
     // URL 복원
-    if (window.location.search.includes('car=')) {
-        history.pushState({}, '', window.location.pathname);
+    if (window.location.search.includes('car=') || window.location.pathname.startsWith('/car/')) {
+        history.pushState({}, '', '/');
     }
     // 메타태그 복원
     document.title = 'SH GLOBAL — Premium Korean Used Cars Export';
@@ -2840,11 +2899,35 @@ function handleUrlParams() {
         renderCars();
     }
 
-    // ?car=123 → 해당 차량 모달 바로 열기
+    // ?car=123 (legacy) 또는 /car/slug-28155362 → 해당 차량 모달 바로 열기
+    var carId = 0;
     var carParam = urlParams.get('car');
     if (carParam) {
-        var carId = parseInt(carParam);
-        if (carId) openModal(carId, true);
+        carId = parseInt(carParam);
+    } else {
+        var pathMatch = window.location.pathname.match(/^\/car\/[^\/]*-(\d+)\/?$/);
+        if (pathMatch) carId = parseInt(pathMatch[1]);
+    }
+    if (carId) {
+        var carExists = carsData.find(function(c) { return c.id === carId; });
+        if (carExists) {
+            openModal(carId, true);
+        } else {
+            // 팔린 차량 → "SOLD" 안내 후 인벤토리로 스크롤
+            history.replaceState({}, '', '/');
+            var soldBanner = document.createElement('div');
+            soldBanner.style.cssText = 'position:fixed;top:64px;left:0;right:0;z-index:999;background:#1a0a0a;border-bottom:1px solid #4a2a2a;padding:16px 24px;text-align:center;color:#ff8888;font-weight:600;font-size:0.95rem;';
+            soldBanner.textContent = 'This vehicle has been sold. Browse our current inventory below.';
+            var closeBtn = document.createElement('span');
+            closeBtn.textContent = ' \u2715';
+            closeBtn.style.cssText = 'cursor:pointer;margin-left:12px;color:#88b898;';
+            closeBtn.onclick = function(){ soldBanner.remove(); };
+            soldBanner.appendChild(closeBtn);
+            document.body.appendChild(soldBanner);
+            setTimeout(function(){ if(soldBanner.parentNode) soldBanner.remove(); }, 8000);
+            var inv = document.getElementById('inventory');
+            if (inv) inv.scrollIntoView({behavior:'smooth'});
+        }
     }
 }
 
@@ -2911,13 +2994,9 @@ function nextPhoto() {
 })();
 
 // ===== NOTIFICATION CONFIG =====
-// ── Telegram Bot 설정 ──
-// 1. 텔레그램에서 @BotFather에게 /newbot 명령 → 봇 생성 → 토큰 복사
-// 2. 생성된 봇에게 아무 메시지 전송
-// 3. 브라우저에서 https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates 접속
-//    → result[0].message.chat.id 값을 TELEGRAM_CHAT_ID에 입력
-const TELEGRAM_BOT_TOKEN = '8684875941:AAFc1Iu3lEJSckj7d7qOtQ8mLMvM8ItaJWU';
-const TELEGRAM_CHAT_ID   = '5672589555';
+// Telegram 알림은 서버사이드 프록시(/api/contact)를 경유한다.
+// 토큰은 Cloudflare Pages Secrets(SH_BOT_TOKEN, SH_BOT_CHAT_ID)에만 존재.
+// 클라이언트 소스에는 어떤 시크릿도 박지 말 것.
 
 // ── FormSubmit.co (이메일) ──
 // 첫 제출 시 확인 이메일이 changecar11@gmail.com으로 옴 → 이메일 내 확인 링크 클릭하면 활성화
@@ -2927,21 +3006,14 @@ const FORMSUBMIT_EMAIL = 'changecar11@gmail.com';
 async function sendNotifications(subject, bodyText, formEl) {
     const promises = [];
 
-    // 1) Telegram 알림
-    if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-        const tgText = `🚗 *${subject}*\n\n${bodyText}`;
-        promises.push(
-            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: tgText,
-                    parse_mode: 'Markdown'
-                })
-            }).catch(err => console.warn('Telegram send failed:', err))
-        );
-    }
+    // 1) Telegram 알림 (서버사이드 프록시 경유)
+    promises.push(
+        fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subject: subject, text: bodyText })
+        }).catch(err => console.warn('Telegram notify failed:', err))
+    );
 
     // 2) Email 알림 (FormSubmit.co)
     if (FORMSUBMIT_EMAIL) {

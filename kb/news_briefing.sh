@@ -10,8 +10,14 @@ export LOGNAME="sunhome"
 export TMPDIR="/var/folders/2r/y64p0wfs65l622s4nvhkbcwm0000gn/T/"
 ulimit -n 524288 2>/dev/null || ulimit -n 65536 2>/dev/null || ulimit -n 10240 2>/dev/null || true
 
-CHAT_ID="5672589555"
-BOT_TOKEN="8143547994:AAFEr6CIeedtZcXbnTO_jPGLQ0AaFKPuq2E"
+# 민감정보: ~/.config/seogeo/env.sh 에서 로드
+[ -f "$HOME/.config/seogeo/env.sh" ] && source "$HOME/.config/seogeo/env.sh"
+CHAT_ID="${SHEXPORT_CHAT_ID:-}"
+BOT_TOKEN="${SHEXPORT_BOT_TOKEN:-}"
+if [ -z "$BOT_TOKEN" ]; then
+    echo "ERROR: SHEXPORT_BOT_TOKEN not set. Check ~/.config/seogeo/env.sh" >&2
+    exit 1
+fi
 PROJECT_DIR="/Users/sunhome/Desktop/claude-auto"
 HISTORY_FILE="$PROJECT_DIR/kb/news_history.json"
 LOG="$PROJECT_DIR/kb/news_briefing.log"
@@ -108,7 +114,7 @@ if os.path.exists(hist_file):
         old = []
 
 combined = old + new_list
-combined = combined[-70:]
+combined = combined[-30:]
 
 with open(hist_file, 'w') as f:
     json.dump(combined, f, ensure_ascii=False, indent=2)
@@ -121,28 +127,35 @@ print(f'히스토리: +{len(new_list)}개, 총 {len(combined)}개')
     echo "[$(date)] 성공 (${#RESULT}자)" >> "$LOG"
 fi
 
-# 텔레그램 전송 (4096자 제한 대응)
-send_telegram() {
-    local text="$1"
-    local length=${#text}
+# 텔레그램 전송 — python3으로 안정적 처리 (bash 문자열 슬라이싱 이슈 방지)
+python3 << PYEOF
+import urllib.request, urllib.parse, json, sys
 
-    if [ "$length" -le 4096 ]; then
-        curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
-            -d chat_id="$CHAT_ID" \
-            -d text="$text" > /dev/null
-    else
-        local offset=0
-        while [ "$offset" -lt "$length" ]; do
-            local chunk="${text:$offset:4096}"
-            curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
-                -d chat_id="$CHAT_ID" \
-                -d text="$chunk" > /dev/null
-            offset=$((offset + 4096))
-            sleep 1
-        done
-    fi
-}
+text = '''$RESULT'''.strip()
+if not text:
+    print("전송할 내용 없음")
+    sys.exit(1)
 
-send_telegram "$RESULT"
+bot_token = "$BOT_TOKEN"
+chat_id = "$CHAT_ID"
+url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 
-echo "[$(date)] 텔레그램 전송 완료" >> "$LOG"
+# 4096자 분할 전송
+chunks = [text[i:i+4096] for i in range(0, len(text), 4096)]
+sent = 0
+for chunk in chunks:
+    data = urllib.parse.urlencode({"chat_id": chat_id, "text": chunk}).encode()
+    try:
+        req = urllib.request.Request(url, data=data)
+        resp = urllib.request.urlopen(req, timeout=30)
+        result = json.loads(resp.read())
+        if result.get("ok"):
+            sent += 1
+        else:
+            print(f"전송 실패: {result}")
+    except Exception as e:
+        print(f"전송 에러: {e}")
+
+print(f"텔레그램 전송: {sent}/{len(chunks)} 성공")
+PYEOF
+echo "[$(date)] 텔레그램 전송 처리 완료" >> "$LOG"
